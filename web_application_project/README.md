@@ -20,3 +20,13 @@
         - urls: tell which pages to build in response to browser requests
         - wsgi: helps Django serve the files it creates
             - acronym for: web server gatewat interfaces
+- **Creating the database**
+    - python manage.py migrate
+    - migrating the database === modifying database
+        - first time is to make sure db matches current state of project
+        - it creates database tables to store info used (Synchronize unmigrated apps) and make sure db struct matches current code (Apply all migrations)
+        - created a db.sqlite3 
+- Viewing the project
+    - in terminal type in: **python manage.py runserver**
+    - This starts a server so you can view the project
+        - http://127.0.0.1:8000/ or http://localhost:8000/
