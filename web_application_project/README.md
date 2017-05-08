@@ -16,4 +16,7 @@
     - dot at end creates new project with directory structure
     - created a *manage.py*: takes in commands and feeds them to relevant parts of Django to run
     - 3 files within folder created: settings.py, urls.py, wsgi.py
-        - 
+        - settings: how Django interacts with the system and manages the project
+        - urls: tell which pages to build in response to browser requests
+        - wsgi: helps Django serve the files it creates
+            - acronym for: web server gatewat interfaces
