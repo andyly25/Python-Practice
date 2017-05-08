@@ -1,0 +1,24 @@
+# Game: Alien Invasion
+
+## Genre: shooter
+
+## Summary:
+
+- Tutorial from Python Crash Course
+
+## Mechanics:
+
+- Ship appears at bottom center of the screen
+
+- player can move left and right with arrow keys
+
+- beginning aliens will fll sky and slowly move downwards
+
+- player shoots and destroys the alien with spacebar
+
+- if all of current aliens destroyed, a faster set appears
+
+- player loses ship if alien touches or reaches bottom of screen
+
+- player has three lives
+

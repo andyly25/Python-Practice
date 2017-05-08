@@ -1,0 +1,6 @@
+# Learning Log
+
+## Details
+- allows users to make journal entries as they learn about each topic.
+- home page should describe the site and invite user to register or login.
+- if logged in, can create new topics, add new entries, and edit.
