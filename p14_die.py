@@ -1,4 +1,5 @@
 #Testing out importing from python libraries
+#note i accidentally skipped 13... can't count I guess?
 
 from random import randint
 
