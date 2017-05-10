@@ -62,6 +62,18 @@
 ### Django Shell
 - you can use the Django shell for testing and troubleshooting the data
     - **python manage.py shell**
-    - e.g. **from learning_logs.models import Topic**
-    - e.g. **Topic.objects.all()**
+    - e.g.1 **from learning_logs.models import Topic**
+    - e.g.1 **Topic.objects.all()**
     - this imports our model Topic and then we get all instances of the model with the list being returned called a *queryset*
+    - e.g.2 **topics = Topic.objects.all()**
+    - e.g.2 **for topic in topics:**
+    - e.g.2     **print(topic.id, topic)**
+        - store the queryset in topics then print each topic's id attribute and string representation
+    - e.g.3 **t = topic.objects.get(id=2)**
+    - e.g.3 **t.text**
+    - e.g.3 **t.date_added**
+    - e.e.3 **t.entry_set.all()**
+        - knowing the id from previous example, we can then use the id to get more info about attributes associated with the id.
+        - to get data from foreign key relationship, use lowercase of related model with _set
+- Note: Restart shell session everytime you modify the models to see the newest changes
+
