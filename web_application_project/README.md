@@ -1,3 +1,11 @@
+## Table of Contents
+[Learning Log](#learning-log)
+[Details](#details)
+[Setting-up](#note-on-setting-up)
+[Django Admin](#django-admin)
+[Define Model](#defining-the-entry-model)
+[Django Shell](#django-shell)
+
 # Learning Log 
 
 ## Details
@@ -58,6 +66,7 @@
     - this is a many to one relationship
     - so update model to include Entry then...
     - follow the 3 easy steps and then register in admin.py
+        - hint... models -> makemigrations -> migrate
 
 ### Django Shell
 - you can use the Django shell for testing and troubleshooting the data
@@ -77,3 +86,4 @@
         - to get data from foreign key relationship, use lowercase of related model with _set
 - Note: Restart shell session everytime you modify the models to see the newest changes
 
+##Reference: https://docs.djangoproject.com/en/1.8/topics/db/queries/

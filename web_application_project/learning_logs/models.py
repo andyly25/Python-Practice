@@ -46,4 +46,6 @@ class Entry(models.Model):
     # we're just looking at 50 characters since it could be large body of text.
     def __str__(self):
         # return a string representation of model
-        return self.text[:50] + "..."
+        
+        # return self.text[:50] + "..."
+        return self.text[:50] + ("..." if len(self.text)>50 else "")
