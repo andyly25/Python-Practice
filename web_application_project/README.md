@@ -1,10 +1,10 @@
 ## Table of Contents
-[Learning Log](#learning-log)
-[Details](#details)
-[Setting-up](#note-on-setting-up)
-[Django Admin](#django-admin)
-[Define Model](#defining-the-entry-model)
-[Django Shell](#django-shell)
+1. [Learning Log](#learning-log)
+2. [Details](#details)
+3. [Setting-up](#note-on-setting-up)
+4. [Django Admin](#django-admin)
+5. [Define Model](#defining-the-entry-model)
+6. [Django Shell](#django-shell)
 
 # Learning Log 
 
@@ -86,4 +86,4 @@
         - to get data from foreign key relationship, use lowercase of related model with _set
 - Note: Restart shell session everytime you modify the models to see the newest changes
 
-##Reference: https://docs.djangoproject.com/en/1.8/topics/db/queries/
+## Reference: https://docs.djangoproject.com/en/1.8/topics/db/queries/
