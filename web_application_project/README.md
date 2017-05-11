@@ -5,6 +5,9 @@
 4. [Django Admin](#django-admin)
 5. [Define Model](#defining-the-entry-model)
 6. [Django Shell](#django-shell)
+7. [Making Pages](#making-pages)
+    - [Mapping a URL](#mapping-a-url)
+    - [Writing a View](#writing-a-view)
 
 # Learning Log 
 
@@ -22,7 +25,7 @@
     - deactivate by: **source deactivate ll_env**
 - inside my venv: **pip install Django**
 - creating a project: **django-admin.py startproject learning_log .**
-    - dot at end creates new project with directory structure
+    - **IMPORTANT: dot** at end creates new project with directory structure
     - created a *manage.py*: takes in commands and feeds them to relevant parts of Django to run
     - 3 files within folder created: settings.py, urls.py, wsgi.py
         - settings: how Django interacts with the system and manages the project
@@ -30,7 +33,7 @@
         - wsgi: helps Django serve the files it creates
             - acronym for: web server gatewat interfaces
 - **Creating the database**
-    - python manage.py migrate
+    - **python manage.py migrate**
     - migrating the database === modifying database
         - first time is to make sure db matches current state of project
         - it creates database tables to store info used (Synchronize unmigrated apps) and make sure db struct matches current code (Apply all migrations)
@@ -87,3 +90,25 @@
 - Note: Restart shell session everytime you modify the models to see the newest changes
 
 ## Reference: https://docs.djangoproject.com/en/1.8/topics/db/queries/
+
+### Making Pages
+- web pages consists of 3 stages in Django:
+    1. defining URLs
+        - Describes to Django what to look for when matching browser request with a site URL
+    2. writing views
+        - Each URL matches to a particular view; view retrieves and processes required data to run the page.
+    3. writing templates 
+        - the view then calls a template which builds a page that a browser can read.
+
+#### Mapping a URL
+- edit urls.py in **learning_log**
+- added in learning_logs.urls into the urlpatterns
+- Now to make a second urls.py in the **learning_logs** folder
+- Note, a lot of comments in each file on what each thing does
+
+#### Writing a View
+- We go edit the **views.py** within the learning_logs directory
+- Now to write a template so create a **templates** folder in learning_logs
+    - within templates make a **learning_logs** folder
+    - this sets a structure so that Django can interpret unambiguously
+        - we create an index.html within the folder
