@@ -35,4 +35,10 @@ urlpatterns = [
     # Home page
     url(r'^$', views.index, name='index'),
 
+    # Show all topics
+    # This pattern will match any URL with the base URL followed by topics
+    url(r'^topics/$', views.topics, name='topics'),
+    # Single topic page
+    # url(r'^topics/(?P<topic_id>\d+)/$', views.topic, name='topic'),
+
 ]

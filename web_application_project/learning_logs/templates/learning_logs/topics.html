@@ -1,0 +1,21 @@
+{% extends "learning_logs/base.html" %}
+
+{# interesting, this is a html Django comment #}
+
+{% block content %}
+    <p> Topics </p>
+    
+    {# in case you didn't know, <ul> is unordered list, <li> is list element #}
+    <ul>
+        {# we make an unordered list of topics, this uses the template for loop style, make sure to end with endfor #}
+        {% for topic in topics %}
+            {# to print a variable in template, wrap variable name in double brackets #}
+            <li>{{topic}}</li>
+        {# The empty tells Django what to do if there's no items in list #}
+        {% empty %}
+            <li>No topics have been added yet.</li>
+        {% endfor %}
+
+    </ul>        
+
+{% endblock content %}

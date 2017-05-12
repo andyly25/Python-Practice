@@ -1,4 +1,9 @@
-<!-- Simple HTML using p for paragraphs -->
-<p>Learning Log</p>
+<!-- Rewriting to inherit from base.html 
+Must have extends on first line to tell Django which parent template to inherit from
+-->
+{% extends "learning_logs/base.html" %}
 
-<p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+<!-- Everything we aren't inheriting from parent template goes into content block -->
+{% block content %}
+    <p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+{% endblock content %}

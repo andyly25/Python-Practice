@@ -112,3 +112,9 @@
     - within templates make a **learning_logs** folder
     - this sets a structure so that Django can interpret unambiguously
         - we create an index.html within the folder
+- Template Inheritence:
+    - To do so we make a base.html that contains elements common to all pages.
+    - include blocks so that everything that aren't inheriting from parent can go here, making each page unique. 
+    - remember to use **{% extends (something) %}** at the beginning of child templates so Django knows what to look for. 
+- Now that you know this... follow the [Making Pages](#making-pages) steps.
+- Remember to update base.py if to include link to new pages
