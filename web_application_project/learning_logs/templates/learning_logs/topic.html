@@ -1,0 +1,27 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+    {# show topic currently displayed, available from context dictionary #}
+    <p>Topic: {{topic}} </p>
+    <p>Entries:</p>
+    <ul>
+    {# make a bulleted list for entries using for loop #}
+    {% for entry in entries %}
+        <li>
+            {% comment %}
+                | line in Django templates represents filter
+                dates formatted e.g. April 1, 2012 11:11
+                The filter linebreak ensures that long text includes line breaks in format understood in browser.
+            {% endcomment %}
+            
+            <p> {{entry.date_added|date:'M d, Y H:i' }} </p>
+            <p> {{entry.text|linebreaks}} </p>
+        </li>
+    {% empty %}
+        <li>
+            There are no entries for this topic yet.
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock content %}

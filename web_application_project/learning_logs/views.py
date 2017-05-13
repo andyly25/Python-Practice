@@ -31,3 +31,17 @@ def topics(request):
 
     # We pass context to render, request object, and path to build the page
     return render(request, 'learning_logs/topics.html', context)
+
+# show a single topic and all its entries
+# /(?P<topic_id>\d+)/ value is used for the topic_id argument.
+def topic(request, topic_id):
+    # get used similar to the Django shell to retrieve topic
+    # note this is a query; queries db for specific info
+    topic = Topic.objects.get(id=topic_id)
+    # have ordered by date_added, '-' sign means reverse order
+    # note this is a query
+    entries = topic.entry_set.order_by('-date_added')
+    # store topic and entries in the context dicitonary
+    context = {'topic':topic, 'entries': entries}
+    # finally send context to topic.html
+    return render(request, 'learning_logs/topic.html', context)

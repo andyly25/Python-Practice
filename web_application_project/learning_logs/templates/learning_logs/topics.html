@@ -9,8 +9,15 @@
     <ul>
         {# we make an unordered list of topics, this uses the template for loop style, make sure to end with endfor #}
         {% for topic in topics %}
-            {# to print a variable in template, wrap variable name in double brackets #}
-            <li>{{topic}}</li>
+            {% comment %}
+                to print a variable in template, wrap variable name in double brackets
+                Using URL pattern for topic and we add topic.id to URL template tag link at the end would be
+                http://localhost:8000/topics/1/
+            {% endcomment %}
+            
+            <li>
+                <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+            </li>
         {# The empty tells Django what to do if there's no items in list #}
         {% empty %}
             <li>No topics have been added yet.</li>
