@@ -1,9 +1,17 @@
 # imports the render() function which renders the response based on data
 # provided by views.
 from django.shortcuts import render
+# This import redirects reader back to topics page after submitting topic
+from django.http import HttpResponseRedirect
+# the reverse() function determine URL from named URL pattern:
+# Django will generate the URL when page requested
+from django.core.urlresolvers import reverse
 
-# import model associated wit date we need
+
+# import model associated with date we need
 from .models import Topic
+# import the form we need
+from .forms import TopicForm
 
 # Create your views here.
 
@@ -45,3 +53,34 @@ def topic(request, topic_id):
     context = {'topic':topic, 'entries': entries}
     # finally send context to topic.html
     return render(request, 'learning_logs/topic.html', context)
+'''
+    This function takes in a request as a parameter.
+    When a user sends a request for this page, the browser will send
+    a GET request. After filling out the form, a POST request will be sent.
+    We'll know if user requesting a blank form (GET) or ask to process 
+    completed form (POST)
+'''
+# Add a new topic
+def new_topic(request):
+    # Determines whether request is GET or POST
+    if request.method != 'POST':
+        # no data submitted; create blank form
+        form = TopicForm()
+    else:
+        # POST data submitted; process data
+        # create an instance of TopicForm and pass data entered by user, which 
+        # is the request.POST
+        form = TopicForm(request.POST)
+        # can't save submitted form until verified that data is valid.
+        # All field in form required by default and data must match 
+        # field types expected.
+        if form.is_valid():
+            # if valid, writes data from form to database
+            form.save()
+            # once data is saved, we use reverse to get URL for topics page 
+            # and pass URL to HttpResponseRedirect(), redirecting to topics
+            return HttpResponseRedirect(reverse('learning_logs:topics'))
+
+    # send the form to the template in a context dictionary
+    context = {'form': form}
+    return render(request, 'learning_logs/new_topic.html', context)

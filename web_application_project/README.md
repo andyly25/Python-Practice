@@ -8,6 +8,7 @@
 7. [Making Pages](#making-pages)
     - [Mapping a URL](#mapping-a-url)
     - [Writing a View](#writing-a-view)
+8. [User Accounts](#user-accounts)
 
 # Learning Log 
 
@@ -118,3 +119,14 @@
     - remember to use **{% extends (something) %}** at the beginning of child templates so Django knows what to look for. 
 - Now that you know this... follow the [Making Pages](#making-pages) steps.
 - Remember to update base.py if to include link to new pages
+
+### User Accounts
+- Want to allow users to add, edit, and delete their posts without going into admin.
+- Adding form based page works in 3 easy steps + a new module:
+    - Define a URL, write a view function, and write a template
+    - addition of forms.py containing the forms
+        - should be in same folder as models.py
+- Requests:
+    - GET: requests for pages that only read data from server
+    - POST: when user needs to submit info through a form
+        - we'll use POST method to process all our forms

@@ -44,5 +44,7 @@ urlpatterns = [
     # The parenthesis captures value stored in the URL.
     # \d+ matches any number of digits that appear between forward slashes
     url(r'^topics/(?P<topic_id>\d+)/$', views.topic, name='topic'),
-
+    # page for adding new topic
+    # This will send requests to the view function new_topic()
+    url(r'^new_topic/$', views.new_topic, name='new_topic')
 ]
