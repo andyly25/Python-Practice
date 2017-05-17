@@ -22,4 +22,4 @@ class TopicForm(forms.ModelForm):
         # and include only the text field
         fields = ['text']
         # tells Django not to generate a label for textfield
-        labels = ['text': '']
+        labels = {'text': ''}

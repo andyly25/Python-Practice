@@ -8,7 +8,7 @@
         we send it back to view function new_topic().
         method tells the browser to submit data as a POST request.
     {% endcomment %}
-    <form action="{% url 'learning_logs:new_topic' %}" method="post">
+    <form action="{% url 'learning_logs:new_topic' %}" method='post'>
         {# csrf (cross-site request forgery) token: prevent attackers from using form to gain unauth access to the website. #}
         {% csrf_token %}
         {# display the form; as_p modifier tells Django to render all form elements in paragraph format #}
