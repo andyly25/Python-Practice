@@ -120,7 +120,7 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
 
-    if request != 'POST':
+    if request.method != 'POST':
         # GET: initial request, pre-fill forms with current entry
         form = EntryForm(instance=entry)
     else:
@@ -132,8 +132,8 @@ def edit_entry(request, entry_id):
             # if valid, can save with no args
             form.save()
             # redirect to topic page with updated page
-            return HttpResponseRedirect(reverse('learning_logs:topic', 
-                args=[topic_id]))
+            return (HttpResponseRedirect(reverse('learning_logs:topic', 
+                                                    args=[topic.id])))
 
     context = {'entry': entry, 'topic': topic, 'form':form}
     return render(request, 'learning_logs/edit_entry.html', context)
