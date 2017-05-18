@@ -53,5 +53,7 @@ urlpatterns = [
     # (?P<topic_id>\d+) captures the num value and store in variable
     # When URL match, Django sends request and id of the topic new_entry view
     url(r'^new_entry/(?P<topic_id>\d+)/$', views.new_entry, name='new_entry'),
-
+    # page for editting entries, needs to pass entry_id
+    url(r'^edit_entry/(?P<entry_id>\d+)/$', views.edit_entry, 
+        name='edit_entry')
 ]

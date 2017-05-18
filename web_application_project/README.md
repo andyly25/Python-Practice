@@ -130,3 +130,7 @@
     - GET: requests for pages that only read data from server
     - POST: when user needs to submit info through a form
         - we'll use POST method to process all our forms
+- pattern I noticed for forms:
+    - Check to see if POST request, if not then blank form or pre-filled
+    - if POST: grab form data -> check validity -> save -> possible redirect to updated/new page
+    - as usual make dictionary context and return render 

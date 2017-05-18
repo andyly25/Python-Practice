@@ -1,0 +1,12 @@
+{% extends "learning_logs/base.html" %}
+{# edit topic entries page #}
+{% block content %}
+    <p><a href="{% url 'learning_logs:topic' topic.id %}"> {{topic}} </a></p>
+    <p>Edit Entry:</p>
+    {# action arg sends form back to edit_entry function for processing and entry_id included so view can modify correct entry object #}
+    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button name="submit">save changes</button>
+    </form>
+{% endblock content %}  

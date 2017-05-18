@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 
 
 # import model associated with date we need
-from .models import Topic
+from .models import Topic, Entry
 # import the form we need
 from .forms import TopicForm, EntryForm
 
@@ -88,14 +88,14 @@ def new_topic(request):
 # Add new entry for particular topic
 def new_entry(request, topic_id):
     # we need to grab topic_id so that we get the correct topic to render
-    topic = Topic.objects.get(topic_id)
+    topic = Topic.objects.get(id=topic_id)
     # check if request is POST or GET
     if request.method !='POST':
         # no data, create blnak form
         form = EntryForm()
     else:
         # Post data submitted; process data
-        form = EntryForm(date=request.POST)
+        form = EntryForm(data=request.POST)
         # check if form is valid
         if form.is_valid():
             # commit=False is to tell Django to create new entry object and 
@@ -106,7 +106,34 @@ def new_entry(request, topic_id):
             # now we save entry to db with correct associated topic
             new_entry.save()
             # redirect user to topic page they made an entry for
-            return HttpResponseRedirect(reverse('learning_logs:topics', 
+            return HttpResponseRedirect(reverse('learning_logs:topic', 
                                                 args=[topic_id]))
-    context = {'topic':topic, 'form', form}
+            
+    context = {'topic':topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
+
+# edit an existing entry
+# when the page receives a GET request, edit_entry() returns a form for edit.
+# When receives a POST request with revision, saves into the db
+def edit_entry(request, entry_id):
+    # Using entry_id to get entry object we want and edit topic associated
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    if request != 'POST':
+        # GET: initial request, pre-fill forms with current entry
+        form = EntryForm(instance=entry)
+    else:
+        # POST data submitted; process
+        # the two args tells Django to create a form instance based on info 
+        # associated with existing entry object and updated from request.POST
+        form = EntryForm(instance=entry, data= request.POST)
+        if form.is_valid():
+            # if valid, can save with no args
+            form.save()
+            # redirect to topic page with updated page
+            return HttpResponseRedirect(reverse('learning_logs:topic', 
+                args=[topic_id]))
+
+    context = {'entry': entry, 'topic': topic, 'form':form}
+    return render(request, 'learning_logs/edit_entry.html', context)
