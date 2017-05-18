@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 # import model associated with date we need
 from .models import Topic
 # import the form we need
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 
 # Create your views here.
 
@@ -84,3 +84,29 @@ def new_topic(request):
     # send the form to the template in a context dictionary
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
+
+# Add new entry for particular topic
+def new_entry(request, topic_id):
+    # we need to grab topic_id so that we get the correct topic to render
+    topic = Topic.objects.get(topic_id)
+    # check if request is POST or GET
+    if request.method !='POST':
+        # no data, create blnak form
+        form = EntryForm()
+    else:
+        # Post data submitted; process data
+        form = EntryForm(date=request.POST)
+        # check if form is valid
+        if form.is_valid():
+            # commit=False is to tell Django to create new entry object and 
+            # store in new_entry w/o save to db yet
+            new_entry = form.save(commit=False)
+            # we set the new_entry's topic that was pulled at beginning
+            new_entry.topic = topic
+            # now we save entry to db with correct associated topic
+            new_entry.save()
+            # redirect user to topic page they made an entry for
+            return HttpResponseRedirect(reverse('learning_logs:topics', 
+                                                args=[topic_id]))
+    context = {'topic':topic, 'form', form}
+    return render(request, 'learning_logs/new_entry.html', context)

@@ -10,7 +10,7 @@
 
 # first import the forms module and model work with
 from django import forms
-from .models import Topic
+from .models import Topic, Entry
 
 # define a class which inherits from forms.ModelForm
 # This is the simplest using a nested Meta class tell Django
@@ -23,3 +23,17 @@ class TopicForm(forms.ModelForm):
         fields = ['text']
         # tells Django not to generate a label for textfield
         labels = {'text': ''}
+
+# Adding another form associated with Entry model
+class EntryForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = ['text']
+        # giving a blank label again
+        labels = {'text': ''}
+        # widget is HTML form elemnt
+        # e.g. single/multi line textbox/area, or dropdown list
+        # widgets overrides Django default widget choices
+        # customize field text to be 80 col wide instead default 40
+        widgets = {'text': forms.Textarea(attrs={'cols':80})}
+    

@@ -47,4 +47,11 @@ urlpatterns = [
     # page for adding new topic
     # This will send requests to the view function new_topic()
     url(r'^new_topic/$', views.new_topic, name='new_topic'),
+    # page for adding new entry
+    # this url pattern matches any URL with form localhost:8000/new_entry/id/
+    # id is a number matchign topic_id
+    # (?P<topic_id>\d+) captures the num value and store in variable
+    # When URL match, Django sends request and id of the topic new_entry view
+    url(r'^new_entry/(?P<topic_id>\d+)/$', views.new_entry, name='new_entry'),
+
 ]
