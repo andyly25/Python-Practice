@@ -1,0 +1,19 @@
+{% extends "learning_logs/base.html" %}
+{# NOTE: template from another app can extend into another app! #}
+
+{% block content %}
+    {# with form.errors set, we display an error message #}
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    {# Setting action arg as URL of login page allow login view process form #}
+    <form method="post" action="{% url 'users:login' %}">
+        {% csrf_token %}
+        {# login view sends a form to the template #}
+        {{form.as_p}}
+        {# and we make a submit button once again #}
+        <button name="submit">log in</button>
+        {# Hidden form element 'next' tells Django to redirect user after successful login; sending to home page #}
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+    </form>
+{% endblock content %}

@@ -10,10 +10,22 @@
 
     We now added a link to topics page using URL template. 
     Where Django generates a link matching URL pattern with name 'topics' in learning_logs/urls.py
+
+    adding in a login link to base.html so it appears on every page;
+    we don't want link to display when user already logged in.
  -->
+
 <p>
     <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-    <a href="{% url 'learning_logs:topics' %}">Topics</a>
+    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
+    {# greeting to user already logged in #}
+    {% if user.is_authenticated %}
+        Hello, {{user.username}}
+        <a href="{% url 'users:logout' %}">log out</a>
+    {% else %}
+        {# provide link to login page for those not authenticated #}
+        <a href="{% url 'users:login' %}">log in</a>
+    {% endif %}
 </p>
 
 <!-- This is a pair of block tags named content.

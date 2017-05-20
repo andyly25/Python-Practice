@@ -24,7 +24,10 @@ from django.contrib import admin
 urlpatterns = [
     # admin.site.urls defines all the urls that can be requested from admin
     url(r'^admin/', include(admin.site.urls)),
+    # match any url that starts with word users, and made a namespace for ease
+    url(r'^users/', include('users.urls', namespace='users')),
     # included module learning_logs.url and a namespace argument to distinguish
     # learning_logs's URLs from other URLs.
     url(r'', include('learning_logs.urls', namespace='learning_logs')),
+
 ]

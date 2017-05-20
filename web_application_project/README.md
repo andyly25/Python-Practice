@@ -9,6 +9,7 @@
     - [Mapping a URL](#mapping-a-url)
     - [Writing a View](#writing-a-view)
 8. [User Accounts](#user-accounts)
+    - [Setting Up User Accounts](#setting-user-account)
 
 # Learning Log 
 
@@ -134,3 +135,13 @@
     - Check to see if POST request, if not then blank form or pre-filled
     - if POST: grab form data -> check validity -> save -> possible redirect to updated/new page
     - as usual make dictionary context and return render 
+
+#### Setting User Accounts
+- we create a new app to contain all functionality related to working with users
+- **python manage.py startapp users**
+- don't forget to add into **settings.py**, and **urls.py**
+- then within new users folder create a **urls.py**
+- In Django auth. system, every templaate has a user variable available
+    - has is_authenticated attribute set: True if user logged in etc..
+- Then create login and logout functions you can view in code
+- We also use Django's default UserCreationForm
