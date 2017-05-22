@@ -115,13 +115,18 @@ def new_entry(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     # check if request is POST or GET
     if request.method !='POST':
+        # Check to see if the topic being added belongs to the user
+        check_topic_owner(topic.owner, request.user)
         # no data, create blnak form
         form = EntryForm()
     else:
+        # Check to see if the topic being added belongs to the user
+        check_topic_owner(topic.owner, request.user)
         # Post data submitted; process data
         form = EntryForm(data=request.POST)
         # check if form is valid
         if form.is_valid():
+
             # commit=False is to tell Django to create new entry object and 
             # store in new_entry w/o save to db yet
             new_entry = form.save(commit=False)
