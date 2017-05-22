@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 """ 
 A model, aka just like a class, tells Django how to work with the data.
 It has attributes and methods. 
@@ -17,6 +18,8 @@ class Topic(models.Model):
     # DateTimeField records date and time data
     # auto_now_add adds the current date and time and we store it
     date_added = models.DateTimeField(auto_now_add=True)
+    # add an owner field to Topic, est. a foreign key relationship to User 
+    owner = models.ForeignKey(User)
 
     # We need to tell Django which attribute to use by default when it 
     # displays info about a topic. This will return a string stored in

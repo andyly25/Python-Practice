@@ -145,3 +145,18 @@
     - has is_authenticated attribute set: True if user logged in etc..
 - Then create login and logout functions you can view in code
 - We also use Django's default UserCreationForm
+- Restricting access to certain pages to logged in users
+    - do so with decorators, e.g. @login_required
+        - a directive placed before function def that Python applies to function before runs to alter how function behaves
+- Connecting Data to certain users:
+    -modify model by add foreign key relationship, then migrate, then modify views to only show data associated with currently logged in
+- viewing all users in django shell
+    - import User model into shell session
+    - **from django.contrib.auth.models import User**
+    - look up all users that have been created so far
+    - **User.objects.all()**
+    - loop through list of users and print each user and id
+    - **for user in User.objects.all():**
+        - **print(user.username, user.id)**
+- NOTE: Easy to reset database instead of migrating, but lose all existing data.
+    - good practice to learn how to migrate a db while maintaining integrity of users' data

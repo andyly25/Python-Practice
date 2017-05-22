@@ -2,10 +2,14 @@
 # provided by views.
 from django.shortcuts import render
 # This import redirects reader back to topics page after submitting topic
-from django.http import HttpResponseRedirect
+# we import Http404 which is standard response when access something
+# that doesn;t exist.
+from django.http import HttpResponseRedirect, Http404
 # the reverse() function determine URL from named URL pattern:
 # Django will generate the URL when page requested
 from django.core.urlresolvers import reverse
+# import login_required decorator
+from django.contrib.auth.decorators import login_required
 
 
 # import model associated with date we need
@@ -27,10 +31,15 @@ def index(request):
 
 
 # Showing all topics 
-# onle needs one parameter: request Django received from server
+# only needs one parameter: request Django received from server
+# applied decorator login_required to check if user logged in and then run v
+@login_required
 def topics(request):
     # query the db by sorting Topic obects by date_added and store in topics
-    topics = Topic.objects.order_by('date_added')
+    # When user logs in, request obj has request.user attribute that stores 
+    # info on user. The filter uses that info to tell Django retrieve only
+    # TOpic objects from db whose owner attributes matches with current
+    topics = Topic.objects.filter(owner=request.usr).order_by('date_added')
 
     # define a context to send to template.
     # context is a dictionaty in which keys are are names used to access data
@@ -42,10 +51,17 @@ def topics(request):
 
 # show a single topic and all its entries
 # /(?P<topic_id>\d+)/ value is used for the topic_id argument.
+@login_required
 def topic(request, topic_id):
     # get used similar to the Django shell to retrieve topic
     # note this is a query; queries db for specific info
     topic = Topic.objects.get(id=topic_id)
+
+    # make sure topic belongs to current user
+    # Http404 will raise if user requests topic they shouldn't see
+    if topic.owner!= request.user:
+        raise Http404
+
     # have ordered by date_added, '-' sign means reverse order
     # note this is a query
     entries = topic.entry_set.order_by('-date_added')
@@ -61,6 +77,7 @@ def topic(request, topic_id):
     completed form (POST)
 '''
 # Add a new topic
+@login_required
 def new_topic(request):
     # Determines whether request is GET or POST
     if request.method != 'POST':
@@ -75,8 +92,13 @@ def new_topic(request):
         # All field in form required by default and data must match 
         # field types expected.
         if form.is_valid():
-            # if valid, writes data from form to database
-            form.save()
+            # NEW changes due to adding user auth
+            # pass commit=False so we can modify new topic before saving in db
+            new_topic = form.save(commit=False)
+            # set new topic's owner attribute to current user
+            new_topic.owner = request.user
+            # now we can call save on topic instance
+            new_topic.save()
             # once data is saved, we use reverse to get URL for topics page 
             # and pass URL to HttpResponseRedirect(), redirecting to topics
             return HttpResponseRedirect(reverse('learning_logs:topics'))
@@ -86,6 +108,7 @@ def new_topic(request):
     return render(request, 'learning_logs/new_topic.html', context)
 
 # Add new entry for particular topic
+@login_required
 def new_entry(request, topic_id):
     # we need to grab topic_id so that we get the correct topic to render
     topic = Topic.objects.get(id=topic_id)
@@ -115,10 +138,15 @@ def new_entry(request, topic_id):
 # edit an existing entry
 # when the page receives a GET request, edit_entry() returns a form for edit.
 # When receives a POST request with revision, saves into the db
+@login_required
 def edit_entry(request, entry_id):
     # Using entry_id to get entry object we want and edit topic associated
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+
+    # protecting this page so no one can use URL to access someone else's entry
+    if topic.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         # GET: initial request, pre-fill forms with current entry
