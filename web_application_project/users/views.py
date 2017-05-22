@@ -35,7 +35,7 @@ def register(request):
             # since password is already validated, we store data into auth_usr
             # and using that info to login
             authenticated_user = authenticate(username=new_user.username,
-                password=request.POST['password'])
+                password=request.POST['password1'])
             # login creating a valid session for new user
             login(request, authenticated_user)
             # redirect user to home page

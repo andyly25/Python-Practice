@@ -39,7 +39,7 @@ def topics(request):
     # When user logs in, request obj has request.user attribute that stores 
     # info on user. The filter uses that info to tell Django retrieve only
     # TOpic objects from db whose owner attributes matches with current
-    topics = Topic.objects.filter(owner=request.usr).order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
 
     # define a context to send to template.
     # context is a dictionaty in which keys are are names used to access data
@@ -59,8 +59,9 @@ def topic(request, topic_id):
 
     # make sure topic belongs to current user
     # Http404 will raise if user requests topic they shouldn't see
-    if topic.owner!= request.user:
-        raise Http404
+    # if topic.owner!= request.user:
+    #     raise Http404
+    check_topic_owner(topic.owner, request.user)
 
     # have ordered by date_added, '-' sign means reverse order
     # note this is a query
@@ -145,8 +146,9 @@ def edit_entry(request, entry_id):
     topic = entry.topic
 
     # protecting this page so no one can use URL to access someone else's entry
-    if topic.owner != request.user:
-        raise Http404
+    # if topic.owner != request.user:
+    #     raise Http404
+    check_topic_owner(topic.owner, request.user)
 
     if request.method != 'POST':
         # GET: initial request, pre-fill forms with current entry
@@ -165,3 +167,7 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'topic': topic, 'form':form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+def check_topic_owner(topic, user):
+    if topic != user:
+        raise Http404
