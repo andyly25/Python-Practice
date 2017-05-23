@@ -41,5 +41,5 @@ def register(request):
             # redirect user to home page
             return HttpResponseRedirect(reverse('learning_logs:index'))
 
-    context = {form:'form'}
+    context = {'form':form}
     return render(request, 'users/register.html', context)
