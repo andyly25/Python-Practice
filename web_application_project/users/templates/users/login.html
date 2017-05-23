@@ -1,19 +1,37 @@
 {% extends "learning_logs/base.html" %}
 {# NOTE: template from another app can extend into another app! #}
 
+{# load bs3 templates into this template #}
+{% load bootstrap3 %}
+
+{% comment %}
+    define header block;
+    NOTE: if form.errors was removed since django bs3 handles form errors automatically
+{% endcomment %}
+
+{% block header %}
+    <h2>Log in to your account.</h2>
+{% endblock header %}
+
+
 {% block content %}
-    {# with form.errors set, we display an error message #}
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
-    {# Setting action arg as URL of login page allow login view process form #}
-    <form method="post" action="{% url 'users:login' %}">
+    {% comment %}
+        Setting action arg as URL of login page allow login view process form.
+        class="form" and bootstrap_form form replaces form.as_p tag.
+    {% endcomment %}
+
+    <form method="post" action="{% url 'users:login' %}" class="form">
         {% csrf_token %}
-        {# login view sends a form to the template #}
-        {{form.as_p}}
-        {# and we make a submit button once again #}
-        <button name="submit">log in</button>
-        {# Hidden form element 'next' tells Django to redirect user after successful login; sending to home page #}
+        
+        {% bootstrap_form form %}
+
+        {# and we make a submit button once again but with bs format #}
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">log in</button>
+        {% endbuttons %}
+        {% comment %}
+            Hidden form element 'next' tells Django to redirect user after successful login; sending to home page
+        {% endcomment %}
         <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
     </form>
 {% endblock content %}
