@@ -1,35 +1,85 @@
-<!-- base template for the site -->
+{% load bootstrap3 %}
+{# load the collection of template tags available in bs3 #}
 
-<!-- Begin with title with link for every page -->
-<!-- 
-    First created a paragraph which acts as a link to homepage.
-    Using a template tag bracket % % closing bracket we generate a link; uses code to generate info on page.
+{# declare file as HTML doc #}
+<!DOCTYPE html>
+{# written in english #}
+<html lang="en">
+    {# Head of doc tels browser what it needs to know to display page correctly #}
+    <head>
+        {# utf-8 is Universal Character Set + transformation Format 8bits: char encoding capable encoding all possible characters instead showing ??? #}
+        <meta charset="utf-8">
+        {# depending on which microsoft browsers you are using, for IE8/9 use, for IE11/Edge consider dropping tag #}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {# Means that browser will render width of page at width of own screen. Recommended only for responsive websites. #}
+        <meta name="viewport" content="width=device-width, initial scale=1">
 
-    The code below generates a url that matches url pattern defined in urls.py with the name index.
-    learning_logs is the namespace, index is unique named URL
+        {# included a title page you see at tab #}
+        <title>Learning Log</title>
+        
+        {# use bs3 custom template tags telling DJango include all BS style files #}
+        {% bootstrap_css %}
+        {# enables all interactive behavoirs you might see on page #}
+        {% bootstrap_javascript %}
+    </head>
 
-    We now added a link to topics page using URL template. 
-    Where Django generates a link matching URL pattern with name 'topics' in learning_logs/urls.py
+    <body>
+        {# static navbar #}
+        {# <nav> element that indicates navigation links section of page. Styled according to BS styled rules defined by selectors: navbar, navbar-default, navbar-static-top #}
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
 
-    adding in a login link to base.html so it appears on every page;
-    we don't want link to display when user already logged in.
- -->
+                {# define a button that appears if browser window too narror to display while nav bar horizonatllay. When clicked, makes a dropdown list. Collapse reference cause nav bar to collapse when user shrinks browser window or when on mobile device #}
+                {# aria-expanded defines current state of collapsible element to screen readers. False means closed by default. #}
+                {# data-targer: point to id selecter - you can add aditional aria-controls attribute to control element containing id of collapsible element. #}
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle
+                     collapsed" data-toggle="collapse" data-target="#navbar" 
+                     aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    {# set project name to appear far left of nav bar and link to home page #}
+                    <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+                </div>
+                
+                {# define set of links that lets user navigate site. Usually a list stat with ul and elements with li #}
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {# links are in this format #}
+                        <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+                    </ul>
 
-<p>
-    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
-    {# greeting to user already logged in #}
-    {% if user.is_authenticated %}
-        Hello, {{user.username}}
-        <a href="{% url 'users:logout' %}">log out</a>
-    {% else %}
-        <a href="{% url 'users:register' %}">register</a> -
-        {# provide link to login page for those not authenticated #}
-        <a href="{% url 'users:login' %}">log in</a>
-    {% endif %}
-</p>
+                    {# second list of nav links, using selector navbar-right. Sets to appear far right side.  #}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a>Hello, {{user.username}}</a></li>
+                            <li><a href="{% url 'users:logout' %}">log out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'users:register' %}">register</a></li>
+                            <li><a href="{% url 'users:login' %}">log in</a></li>
+                            
+                        {% endif %}
+                        
+                    </ul>
+                    {# nav collapse #}
+                    
+                </div>
+            </div>
+        </nav>
 
-<!-- This is a pair of block tags named content.
-This is a placeholder that later a child template can use to define the kind of info that goes within. You can define as many as you like, since you have the option to pick as much as you need.
- -->
-{% block content %}{% endblock content %}
+        {# main parts of the page #}
+        {# opening div with class container: this acts as a container we place two elements: header and content #}
+        <div class="container">
+            {# header block contains info tell user what kind of info the page holds and what they can do. #}
+            <div class="page-header">
+                {% block header %}{% endblock header %}
+            </div>
+            <div>
+                {# a separate div with no specific style class #}
+                {% block content %}{% endblock content %}
+            </div>
+        {# /container #}
+        </div> 
+
+
+    </body>
+</html>

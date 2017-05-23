@@ -1,0 +1,35 @@
+<!-- base template for the site -->
+
+<!-- Begin with title with link for every page -->
+<!-- 
+    First created a paragraph which acts as a link to homepage.
+    Using a template tag bracket % % closing bracket we generate a link; uses code to generate info on page.
+
+    The code below generates a url that matches url pattern defined in urls.py with the name index.
+    learning_logs is the namespace, index is unique named URL
+
+    We now added a link to topics page using URL template. 
+    Where Django generates a link matching URL pattern with name 'topics' in learning_logs/urls.py
+
+    adding in a login link to base.html so it appears on every page;
+    we don't want link to display when user already logged in.
+ -->
+
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
+    <a href="{% url 'learning_logs:topics' %}">Topics</a> -
+    {# greeting to user already logged in #}
+    {% if user.is_authenticated %}
+        Hello, {{user.username}}
+        <a href="{% url 'users:logout' %}">log out</a>
+    {% else %}
+        <a href="{% url 'users:register' %}">register</a> -
+        {# provide link to login page for those not authenticated #}
+        <a href="{% url 'users:login' %}">log in</a>
+    {% endif %}
+</p>
+
+<!-- This is a pair of block tags named content.
+This is a placeholder that later a child template can use to define the kind of info that goes within. You can define as many as you like, since you have the option to pick as much as you need.
+ -->
+{% block content %}{% endblock content %}

@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Third party apps
+    'bootstrap3',
+
     # My apps
     'learning_logs',
     'users',
@@ -127,3 +130,9 @@ STATIC_URL = '/static/'
 # so when unauth user request page protected by @login_required, Django sends 
 # user to URL defined by LOGIN_URL
 LOGIN_URL = '/users/login/'
+
+# Settings for django-bootstrap3
+# This code spares us from downloading jQuery and place in correct location
+BOOTSTRAP3 = {
+    'include_jquery': True,
+}

@@ -10,6 +10,7 @@
     - [Writing a View](#writing-a-view)
 8. [User Accounts](#user-accounts)
     - [Setting Up User Accounts](#setting-user-account)
+9. [Styling](#styling)
 
 # Learning Log 
 
@@ -160,3 +161,10 @@
         - **print(user.username, user.id)**
 - NOTE: Easy to reset database instead of migrating, but lose all existing data.
     - good practice to learn how to migrate a db while maintaining integrity of users' data
+
+### Styling
+- Using django-bootstrap3 to integrate Bootstrap into project
+    - in venv use: **pip install django-bootstrap3**
+    - in settings.py add **bootstrap3** into INSTALLED_APPS section
+    - we need boostrap3 to include jQuery, a JS lib that enables interactive elements
+        - BOOTSTRAP3 = {'include_jquery':True,}
