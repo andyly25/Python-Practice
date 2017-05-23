@@ -1,4 +1,11 @@
 {% extends "learning_logs/base.html" %}
+{# load bs3 template #}
+{% load bootstrap3 %}
+
+{# add appropiate header #}
+{% block header %}
+    <h2>Add a new topic:</h2>
+{% endblock header %}
 
 {% block content %}
     <p>Add a new topic:</p>
@@ -8,13 +15,19 @@
         we send it back to view function new_topic().
         method tells the browser to submit data as a POST request.
     {% endcomment %}
-    <form action="{% url 'learning_logs:new_topic' %}" method='post'>
+    <form action="{% url 'learning_logs:new_topic' %}" method='post' class="form">
         {# csrf (cross-site request forgery) token: prevent attackers from using form to gain unauth access to the website. #}
         {% csrf_token %}
-        {# display the form; as_p modifier tells Django to render all form elements in paragraph format #}
-        {{form.as_p}}
-        {# Django doesn't create a submit button, so.. we make one #}
-        <button name="submit">add topic</button>
         
+        {# use this instead of form.as_p #}
+        {% bootstrap_form form %}
+        {# display the form; as_p modifier tells Django to render all form elements in paragraph format #}
+        {# {{form.as_p}} #}
+        
+        {# use bs3 structure for submit button #}
+        {% buttons %}
+        {# Django doesn't create a submit button, so.. we make one #}
+            <button name="submit" class="btn btn-primary">add topic</button>
+        {% endbuttons%}
     </form>
 {% endblock content %}
