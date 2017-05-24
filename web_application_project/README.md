@@ -214,3 +214,10 @@
     - Pushing to Heroku:
         - heroku login -> heroku create -> git push heroku master
         - to check if server process started correctly use: **heroku ps**
+        - considering the fact that my project is in a subdirectory, I'll use git subtree
+            ```
+            git clone git://github.com/apenwarr/git-subtree.git
+            cd git-subtree
+            sudo sh install.sh
+            ```
+        - now you can do: **git subtree push --prefix yourDirectory heroku master**
