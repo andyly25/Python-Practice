@@ -12,6 +12,7 @@
     - [Setting Up User Accounts](#setting-user-account)
 9. [Styling](#styling)
 10. [Deploying an App](#deploying-to-a-live-server)
+11. [Refining Heroku Deployment](#refining-heroku-deployment)
 
 # Learning Log 
 
@@ -221,3 +222,15 @@
             sudo sh install.sh
             ```
         - now you can do: **git subtree push --prefix yourDirectory heroku master**
+    - Heroku, set up database: **heroku run python manage.py migrate**
+        - you won't see any data you entered in local deployment since we didn't copy data to live server.
+        - normal practice since you usually don't copy local to live deployment since local data is usually for testing
+
+#### Refining Heroku Deployment
+- Make project more secure by changing DEBUG to False, since hackers can use extra info from error messages to attack server
+- Creating superuse on Heroku
+    - we can use Bash terminal to create superuser to access admin site on live app
+    - now you can add admin at end of url to log in admin site
+- note when you made app, heroku gave your app a weird name, so use this to change the app name
+    - **heroku apps:rename learning_log**
+
