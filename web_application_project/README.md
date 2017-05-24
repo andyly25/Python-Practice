@@ -11,6 +11,7 @@
 8. [User Accounts](#user-accounts)
     - [Setting Up User Accounts](#setting-user-account)
 9. [Styling](#styling)
+10. [Deploying an App](#deploying-to-a-live-server)
 
 # Learning Log 
 
@@ -169,3 +170,44 @@
     - we need boostrap3 to include jQuery, a JS lib that enables interactive elements
         - BOOTSTRAP3 = {'include_jquery':True,}
     - now just edit the pages using bootstrap3 
+    - remember to {% load bootstrap3 %} on pages you want to use bs3 on
+
+### Deploying to a live server
+- let's say we want to use Heroku
+    - free tier: limit on # apps can be deployed, and how often people visit
+    - To deploy and manage a project on Heroku servers go to: https://toolbelt.heroku.com/ 
+        - after installing do:
+        - **heroku login** then go to your app folder and:
+        - **heroku create**
+    - From a venv: need to install some packages to serve Django projects:
+
+        ```
+        pip install dj-database-url
+        pip install dj-static
+        pip install static3
+        pip install gunicorn
+        ```
+    - We need to know which packages project depends on so use:
+        - **pip freeze > requirements.txt**
+        - freeze tells pip to write names of all packages currently installed in project into the txt file
+    - from requirements.txt add in the line
+        - **psycopg2>=2.6.1**
+        - helps heroku manage the live database
+    - now since I'm using python 3.5.2
+        -  make a runtime.txt file and add in: **python-3.5.2**
+    - You should now modify settings.py for Heroku
+    - creating a Procfile to start processes
+        - tells Heroku which processes to start in order to serve project correctly
+        - one line file in same directory as manage.py
+        - **web: gunicorn learning_log.wsgi --log-file -
+            - tells Heroku to use gunicorn as server and use settings in wsgi.py to launch
+    - Modify wsgi.py for Heroku
+    - Make a directory for static files
+        - On Heroku, Django collects all static files and place them in one place
+        - in learning_log we created a **static** folder
+        - also make a placeholder file since empty directories won't be included in project when pushed
+    - Using gunicorn Server Locally
+        - if on a Linux or OS X you can use gunicorn server locally before deploying
+        - **heroku local**
+            - first time would install number of packages from Heroku Toolbelt
+            - gunicorn listening to request from http://localhost:5000

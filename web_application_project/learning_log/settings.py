@@ -136,3 +136,34 @@ LOGIN_URL = '/users/login/'
 BOOTSTRAP3 = {
     'include_jquery': True,
 }
+
+# Heroku settings
+
+# getcwd() gets current working directory file running from
+# in our case it's the project folder.
+# if test ensures that settings in block only when project is deployed on 
+# Heroku. Allows have one setting file works for local and live.
+cwd = os.getcwd()
+if cwd == '/app' or cwd[:4] == '/tmp':
+    # helps configure db on Heroku since Heroku uses PostgreSQL. These
+    # settings configure project to use Postgres.
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
+    }
+    
+    # The rest of settings support HTTP requests
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure().
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # Only allow heroku to host the project.
+    ALLOWED_HOSTS = ['learning-log-final.herokuapp.com']
+    DEBUG = False
+
+    # set up the project to serve static files correctly on Heroku
+    # Static asset configuration
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
