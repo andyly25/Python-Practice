@@ -211,3 +211,6 @@
         - **heroku local**
             - first time would install number of packages from Heroku Toolbelt
             - gunicorn listening to request from http://localhost:5000
+    - Pushing to Heroku:
+        - heroku login -> heroku create -> git push heroku master
+        - to check if server process started correctly use: **heroku ps**
