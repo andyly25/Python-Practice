@@ -1,21 +1,38 @@
 {% extends 'learning_logs/base.html' %}
 
+{% comment %}
+    topic page has more content than most pages, so we'll use
+    bootstrap panels to make each entry stand out.
+    panel: div with predefined styling
+{% endcomment %}
+
+{# place the topic in a header block #}
+{% block header %}
+    <h2>{{topic}}</h2>
+{% endblock header %}
+
 {% block content %}
     {# show topic currently displayed, available from context dictionary #}
-    <p>Topic: {{topic}} </p>
-    <p>Entries:</p>
+    {% comment %}
+        <p>Topic: {{topic}} </p>
+        <p>Entries:</p>
+    {% endcomment %}
+    
     <p>
         <a href="{% url 'learning_logs:new_entry' topic.id%}">add new entry</a>
     </p>
     <ul>
     {# make a bulleted list for entries using for loop #}
     {% for entry in entries %}
+    {% comment %}
+        Note: replacing a lot of this with BS style by 
+        deleting the unordered list structure
         <li>
-            {% comment %}
+                
                 | line in Django templates represents filter
                 dates formatted e.g. April 1, 2012 11:11
                 The filter linebreak ensures that long text includes line breaks in format understood in browser.
-            {% endcomment %}
+            
             
             <p> {{entry.date_added|date:'M d, Y H:i' }} </p>
             <p> {{entry.text|linebreaks}} </p>
@@ -24,6 +41,27 @@
                 <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
             </p>
         </li>
+    {% endcomment %}
+    
+    {# instead of list items, make panel div element with 2 nested divs #}
+    <div class="panel panel-default">
+        {# contains date for entry and link to edit entry #}
+        <div class="panel-heading">
+            <h3>
+                {{entry.date_added|date:'M d, Y H:i'}}
+                {# small makes font little smaller than time stamp #}
+                <small>
+                    <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+                </small>
+            </h3>
+        </div>
+        {# contains actual text of entry #}
+        <div class="panel-body">
+            {{entry.text|linebreaks}}
+        </div>
+    {# end panel #}
+    </div> 
+
     {% empty %}
         <li>
             There are no entries for this topic yet.

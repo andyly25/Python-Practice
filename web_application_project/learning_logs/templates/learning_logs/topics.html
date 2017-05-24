@@ -2,8 +2,11 @@
 
 {# interesting, this is a html Django comment #}
 
+{% block header %}
+    <h1>Topics</h1>
+{% endblock header %}
+
 {% block content %}
-    <p> Topics </p>
     
     {# in case you didn't know, <ul> is unordered list, <li> is list element #}
     <ul>
@@ -16,7 +19,9 @@
             {% endcomment %}
             
             <li>
-                <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+                <h3>
+                    <a href="{% url 'learning_logs:topic' topic.id %}">{{topic}}</a>
+                </h3>
             </li>
         {# The empty tells Django what to do if there's no items in list #}
         {% empty %}
@@ -24,6 +29,9 @@
         {% endfor %}
 
     </ul> 
-    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>       
+
+    <h3>
+        <a href="{% url 'learning_logs:new_topic' %}">Add new topic</a> 
+    </h3>       
 
 {% endblock content %}

@@ -168,3 +168,4 @@
     - in settings.py add **bootstrap3** into INSTALLED_APPS section
     - we need boostrap3 to include jQuery, a JS lib that enables interactive elements
         - BOOTSTRAP3 = {'include_jquery':True,}
+    - now just edit the pages using bootstrap3 
