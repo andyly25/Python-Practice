@@ -1,6 +1,8 @@
 # imports the render() function which renders the response based on data
 # provided by views.
-from django.shortcuts import render
+# get_object_or_404 function tries to get requested obj from db, but if obj
+# doesn't exist, raises a 404 exception.
+from django.shortcuts import render, get_object_or_404
 # This import redirects reader back to topics page after submitting topic
 # we import Http404 which is standard response when access something
 # that doesn;t exist.
@@ -55,7 +57,8 @@ def topics(request):
 def topic(request, topic_id):
     # get used similar to the Django shell to retrieve topic
     # note this is a query; queries db for specific info
-    topic = Topic.objects.get(id=topic_id)
+    # topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
 
     # make sure topic belongs to current user
     # Http404 will raise if user requests topic they shouldn't see

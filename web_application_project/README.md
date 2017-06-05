@@ -236,3 +236,4 @@
 - Now we can also modify 404 and 500 html pages by creating templates templates in learning_log directory.
     - then make slight changes in settings.py within the TEMPLATES [... 'DIRS':[]...]
     - This tells Django to look in root template dir for error page templates
+- Note that SECRET_KEY should be handled more carefully for production site. So research and make more secure.
