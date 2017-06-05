@@ -232,7 +232,7 @@
     - we can use Bash terminal to create superuser to access admin site on live app
     - now you can add admin at end of url to log in admin site
 - note when you made app, heroku gave your app a weird name, so use this to change the app name
-    - **heroku apps:rename learning_log**
+    - **heroku apps:rename learning-log --app AppName**
 - Now we can also modify 404 and 500 html pages by creating templates templates in learning_log directory.
     - then make slight changes in settings.py within the TEMPLATES [... 'DIRS':[]...]
     - This tells Django to look in root template dir for error page templates
