@@ -11,4 +11,9 @@
 - Install matplotlib first.
     - a mathematical plotting library.
     - matplotlib gallery at: http://matplotlib.org/
+- Install Pygal next
+    - Python visualization package which produces scalable vector graphic files.
+    - helps scale to fit users screens
+    - mac/linux: pip install --user pygal
+    - pygal gallery at: http://www.pygal.org/
     
