@@ -4,7 +4,9 @@
     - Data mining: using code to explore patterns and connections in a data set.
         - data set: can be a small list of numbers up to gigabytes of data.
 - More than just pretty pictures
-    - Helps see patterns and significance in data sets. 
+    - Helps see patterns and significance in data sets.
+- We'll be analyzing data online in two common formats: CSV and JSON
+    - CSV: comma separated values, tricky for humans to read, but easy to process and extract data from 
 - **Note: for all who reads this README, for things like Install matplotlib, please refer to Google-senpai for assistance.**
 
 ## Installations to start:
