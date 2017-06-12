@@ -17,5 +17,7 @@
     - Python visualization package which produces scalable vector graphic files.
     - helps scale to fit users screens
     - mac/linux: pip install --user pygal
-    - pygal gallery at: http://www.pygal.org/
-    
+    - pygal gallery at: http://www.pygal.org
+
+## Useful Links
+- you can donwload weather data at: https://www.wunderground.com/history/    

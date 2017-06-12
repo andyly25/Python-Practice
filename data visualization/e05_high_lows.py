@@ -5,7 +5,7 @@ from datetime import datetime
 from matplotlib import pyplot as plt
 
 # store filename of file we're working with then open it
-filename = 'sitka_weather_07-2014.csv'
+filename = 'sitka_weather_2014.csv'
 with open(filename) as f:
     # then pass file as arg to create reader object associated with file
     reader = csv.reader(f)
@@ -14,9 +14,8 @@ with open(filename) as f:
     # print(header_row)
 
     # get high temperatures from file.
-    # create an empty list
-    # this is weird format? after adding in dates
-    dates, highs = [], []
+    # create an empty list for dates, highs, lows
+    dates, highs, lows = [], [], []
     # then loop through remaining rows in the file; continues where left off
     # On each pass through loop, append data from index 1, 2nd col, to highs
     for row in reader:
@@ -28,7 +27,11 @@ with open(filename) as f:
         high = int(row[1])
         highs.append(high)
 
-    print(highs)
+        # extract and store low temp for each date from 4th pos in row
+        low = int(row[3])
+        lows.append(low)
+
+    # print(highs)
 
     # To make easier to understand file header data, we print each
     # header and its position in the list
@@ -39,10 +42,15 @@ with open(filename) as f:
 # plot data
 fig = plt.figure(dpi=128, figsize=(10,6))
 # pass the list of highs and dates to plot()
-plt.plot(dates, highs, c='red')
+# alpha controls transparency
+plt.plot(dates, highs, c='red', alpha =0.5)
+# pass the list of lows and dates to plot
+plt.plot(dates, lows, c ='blue', alpha=0.5)
+# shade in between the two color sets
+plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
 # Formal plot.
-plt.title("Daily high temperatures, July 2014", fontsize=24)
+plt.title("Daily high and low temperatures - 2014", fontsize=24)
 # we would label the dates here.
 plt.xlabel('', fontsize=16)
 # draws the date labels diagonally to prevent overlapping
@@ -51,4 +59,4 @@ plt.ylabel("Temperature (F)", fontsize=16)
 plt.tick_params(axis='both', which='major', labelsize=16)
 
 plt.show()
-
+plt.savefig('e05_high_low1', bbox_inches='tight')
