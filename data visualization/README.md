@@ -20,4 +20,6 @@
     - pygal gallery at: http://www.pygal.org
 
 ## Useful Links
-- you can donwload weather data at: https://www.wunderground.com/history/    
+- you can donwload weather data at: https://www.wunderground.com/history/
+    - Seems like you need to use their API to provide the weather data and historical records through HTTP requests
+- More data sets can be obtained from: http://frictionlessdata.io/    

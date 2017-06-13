@@ -79,5 +79,6 @@ fig.autofmt_xdate()
 plt.ylabel("Temperature (F)", fontsize=16)
 plt.tick_params(axis='both', which='major', labelsize=16)
 
-plt.show()
 plt.savefig('e05_high_low3', bbox_inches='tight')
+plt.show()
+
