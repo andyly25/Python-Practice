@@ -36,11 +36,26 @@ for pop_dict in pop_data:
         if code:
             cc_populations[code] = population
 
+# Group the countries into 3 population levels
+cc_pop1, cc_pop2, cc_pop3 = {}, {}, {}
+for cc, pop in cc_populations.items():
+    if pop <10000000:
+        cc_pop1[cc] = pop
+    elif pop < 1000000000:
+        cc_pop2[cc] = pop
+    else:
+        cc_pop3[cc] =pop
+
+# see how many countries in each level.
+print(len(cc_pop1), len(cc_pop2), len(cc_pop3))
 
 # make an instance of the World class
 wm = World()
 wm.title = 'World Population in 2010, by Country'
 # pass dictionary of cc and pop values
-wm.add('2010', cc_populations)
+# wm.add('2010', cc_populations)
+wm.add('0-10m', cc_pop1)
+wm.add('10m-1bn', cc_pop2)
+wm.add('>1bn', cc_pop3)
 
-wm.render_to_file('e06_world_population.svg')
+wm.render_to_file('e06_world_populationGrouped.svg')
