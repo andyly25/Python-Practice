@@ -24,9 +24,9 @@ def get_country_code(country_name):
     # if country not found
     return None
 
-print(get_country_code('Andorra'))
-print(get_country_code('Iceland'))
-# this will return none
-print(get_country_code('Taiwan'))
-# This will actually return TW ...
-print(get_country_code('Taiwan, Province of China'))
+# print(get_country_code('Andorra'))
+# print(get_country_code('Iceland'))
+# # this will return none
+# print(get_country_code('Taiwan'))
+# # This will actually return TW ...
+# print(get_country_code('Taiwan, Province of China'))
