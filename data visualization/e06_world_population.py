@@ -7,6 +7,9 @@ a country name, country code, year, and value for population.
 # first load json modulae to load data properly from file
 import json
 import pygal
+# pygal styles are stored in the style module 
+# aliases makes the world so much simpler
+from pygal.style import RotateStyle as RS, LightColorizedStyle as LCS
 
 from e06_countries import get_country_code
 # no more world map, renamed to be
@@ -49,8 +52,14 @@ for cc, pop in cc_populations.items():
 # see how many countries in each level.
 print(len(cc_pop1), len(cc_pop2), len(cc_pop3))
 
+
+# add some styling using RotateStyle, takes in a hex color
+# first two nums are red, next 2 is green, last 2 is blue
+wm_style = RS('#336699', base_style=LCS)
+
 # make an instance of the World class
-wm = World()
+wm = World(style=wm_style)
+
 wm.title = 'World Population in 2010, by Country'
 # pass dictionary of cc and pop values
 # wm.add('2010', cc_populations)
@@ -58,4 +67,4 @@ wm.add('0-10m', cc_pop1)
 wm.add('10m-1bn', cc_pop2)
 wm.add('>1bn', cc_pop3)
 
-wm.render_to_file('e06_world_populationGrouped.svg')
+wm.render_to_file('e06_world_populationStyled.svg')
