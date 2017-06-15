@@ -1,19 +1,66 @@
+'''
+First attempt: grabbing the provided country code and the key,
+    Doesn't seem to work maybe because the examples I followed utilized
+    2-letter country codes? So let's just go back to grabbing country names
+    then converting into 2-letters
+Second attempt: yep... it works now after using country names and converting 
+    into 2-letters.
+
+here's the countries not found:
+    Aruba not found
+    Andorra not found
+    American Samoa not found
+    Antigua and Barbuda not found
+    Bermuda not found
+    Curacao not found
+    Cayman Islands not found
+    Dominica not found
+    Faroe Islands not found
+    Micronesia, Fed. Sts. not found
+    Gibraltar not found
+    Grenada not found
+    Greenland not found
+    Isle of Man not found
+    Not classified not found
+    Kiribati not found
+    St. Kitts and Nevis not found
+    Liechtenstein not found
+    St. Martin (French part) not found
+    Monaco not found
+    Marshall Islands not found
+    Northern Mariana Islands not found
+    Nauru not found
+    Palau not found
+    San Marino not found
+    South Sudan not found
+    Sint Maarten (Dutch part) not found
+    Seychelles not found
+    Turks and Caicos Islands not found
+    Tuvalu not found
+    British Virgin Islands not found
+    Kosovo not found
+
+If I wasn't lazy, I'd add them all to the map.
+
+114 28 7
+'''
+
 import csv
 
 from pygal.style import RotateStyle as RS, LightColorizedStyle as LCS
 from pygal.maps.world import World
 
-from iso3166 import countries
-# from e06_countries import get_country_code
+# from iso3166 import countries
+from e06_countries import get_country_code
 
-def get_country_code(country_name):
-    # return 2 digit country code for given country
+# def get_country_code(country_name):
+#     # return 2 digit country code for given country
 
-    for code, name in countries.items():
-        if name == country_name:
-            return code
-    # if country not found
-    return None
+#     for code, name in countries.items():
+#         if name == country_name:
+#             return code
+#     # if country not found
+#     return None
 
 # store filename of file we're working with then open it
 filename = 'worldUnemployment.csv'
@@ -24,6 +71,8 @@ with open(filename, newline='', encoding='utf-8') as f:
     # next() returns the next line in file, in this case only once for header
 
     # inelegant, but let's skip first 3 rows
+    # Maybe I can just do a while loop that keeps looping until I 
+    # the next line contains row[0] == "Country Name" or something like that
     next(reader)
     next(reader)
     next(reader)
@@ -48,12 +97,16 @@ with open(filename, newline='', encoding='utf-8') as f:
 
     for rows in reader:
         try:
-            key = rows[1]
+            country_name = rows[0]
+            code = get_country_code(country_name)
+            # key = rows[1]
             value = int(float(rows[60]))
         except:
-            print(key + " not found")
+            # print(key + " not found")
+            print(country_name + ' not found')
         else:
-            myDict[key] = value
+            # myDict[key] = value
+            myDict[code] = value
 
 # print (myDict)
    
