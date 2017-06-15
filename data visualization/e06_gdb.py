@@ -13,7 +13,7 @@ with open(file) as f:
 # build a dict of gdp data
 cc_gdps = {}
 for gdp_dict in gdp_data:
-    if gdp_dict['Year'] =='2015':
+    if gdp_dict['Year'] =='2014':
         country_name = gdp_dict['Country Name']
         gdp = int(float(gdp_dict['Value']))
         code = get_country_code(country_name)
