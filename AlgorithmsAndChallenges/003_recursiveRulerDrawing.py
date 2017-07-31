@@ -70,5 +70,5 @@ time is at 2 so the center of that section will contain 2 ticks (#2). Then the
 end ticks of section will be similar to #1 with 1 ticks (#3). Now from the 
 recursion we made it back to when ticklen is at 3 which is the very center of 
 the inch so there will be 3 ticks (#4). The bottom half of that inch is same as
-#1 - #3. And this keeps repeating until the ruler is 3 inches
+#1 - #3. And this keeps repeating until the ruler is 3 inches 
 '''
