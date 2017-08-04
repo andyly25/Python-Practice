@@ -59,13 +59,13 @@ def hailstone3(n):
             n //= 2
         else:
             n = n * 3 + 1
-    # seq.append(n)
+    seq.append(n)
     print(str(tuple(seq)) + " sequence length " + str(len(seq)))
     return tuple(seq), len(seq)
 
 print("\npythonic method")
-hailstone3(9)
+hailstone3(7)
 print('\niterative method')
-hailstone2(9)
+hailstone2(7)
 print("\nrecursive method")
-hailstone(9)
+hailstone(7)
