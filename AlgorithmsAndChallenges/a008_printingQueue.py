@@ -26,6 +26,22 @@ Goal:
     - does 1 sec of printing while subtracts 1 from task's time
     - if task done with its time reaching zero, printer no longer busy
 3. after done simulating, compute avg waiting time from list of waiting times
+
+EXTRA:
+How would I modify to reflect larger num of students?
+The equation we use above to calculate 180, I would make it into a function.
+The user provides how many students for simulation we plug into the function
+and spit out the number to be used.
+
+What happens if length of avg print task cut in half?
+so instead of 1-20 in the Tasks class we would have for 1-10
+I'll assume this makes tasks finished twice as fast.
+
+
+How would you paramaterize num of students?
+we can have a count of total tasks performed and we know that each students 
+can do up to 2 tasks. So we can make an average from total tasks/2 = avg students
+
 '''
 
 # importing Queue that I made previously
