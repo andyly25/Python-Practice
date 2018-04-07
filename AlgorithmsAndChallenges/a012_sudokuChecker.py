@@ -74,6 +74,78 @@ def sudoku2(grid):
 
 
 
+# ---------------------------
+# Here's another person's solution
+def check_unique(nums):
+     s = set()
+     for num in nums:
+          if num == '.':
+               continue 
+            
+          if num in s:
+               return False
+          s.add(num)
+     return True
+        
+
+def sudoku3(grid):
+     for line in grid:
+          if not check_unique(line):
+               return False
+    
+     for i in range(9):
+          if not check_unique([line[i] for line in grid]):
+               return False
+        
+     for i in range(0,9,3):
+          for j in range(0, 9, 3):
+               if not check_unique(grid[i][j:j+3] + grid[i+1][j:j+3] + grid[i+2][j:j+3]):
+                    return False
+            
+     return True
+
+
+#-------
+# Here's another in python2
+# originally had xrange, changed to range
+# and the zip used didn't have list before it
+# list indices must be integers or slices, not float, so we use // instead of /
+# Thank you stack overflow for pointing differences between python2 and 3!
+def sudoku4(grid):
+     def unique(G):
+          G = [x for x in G if x != '.']
+          return len(set(G)) == len(G)
+     def groups(A):
+          B = list(zip(*A))
+          for v in range(9):
+               yield A[v]
+               yield B[v]
+               yield [A[v//3*3 + r][v%3*3 +c] 
+                    for r in range(3) for c in range(3)]
+    
+     return all(unique(grp) for grp in groups(grid))
+
+# -------------
+# last one
+def sudoku5(grid):
+     for i in range(9):
+          for j in range(9):
+               num = grid[i][j]
+               if num != '.':
+                    for k in range(9):
+                         if k != j and grid[i][k] == num:
+                              return False
+                         if k != i and grid[k][j] == num:
+                              return False
+                         top_i = i - i%3
+                         top_j = j - j%3
+                         if (top_i+k//3,top_j+k%3) != (i,j) and grid[top_i+k//3][top_j+k%3] == num:
+                              return False
+
+     return True
+                
+
+
 
 
 
@@ -103,3 +175,5 @@ grid2 = [['.', '.', '.', '1', '4', '.', '.', '2', '.'],
 
 print(sudoku2(grid1))
 print(sudoku2(grid2))
+print(sudoku4(grid1))
+print(sudoku4(grid2))
