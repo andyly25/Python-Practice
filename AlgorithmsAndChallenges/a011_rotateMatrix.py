@@ -50,6 +50,7 @@ The * operator can be used in conjuncton with zip() to unzip the list.
 makes it:['x', 'y', 'z'], [1, 2, 3], ['a', 'b', 'c']
 this then takes the x,1,a and zip that in for our 1st row and continues downwards
 '''
+
 def rotateImage2(a):
     return list(zip(*reversed(a)))
 
